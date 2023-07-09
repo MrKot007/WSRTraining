@@ -5,4 +5,5 @@
     <color name="mainText">#3A3A3A</color>
     <color name="mainGray">#A7A7A7</color>
     <color name="hint">#CFCFCF</color>
+    <color name="primary">#0560FA</color>
 </resources>

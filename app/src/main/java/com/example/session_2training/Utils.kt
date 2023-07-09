@@ -10,3 +10,9 @@ fun Context.showAlertDialog(reason: String) {
         .setPositiveButton("OK", null)
         .create().show()
 }
+
+fun String.checkEmail() : Boolean{
+    val name = this.substringBefore("@")
+    val domen = this.substringAfter("@")
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches() && name.lowercase() == name && domen.lowercase() == domen
+}
