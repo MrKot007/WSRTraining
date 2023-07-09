@@ -88,7 +88,7 @@ object SupabaseConnection {
         return user
     }
 
-    suspend fun geUserData(context: Context, idUser: String) : DataUserRow? {
+    suspend fun getUserData(context: Context, idUser: String) : DataUserRow? {
         try {
             val user = getUser(context)
             val result = client.postgrest["Profiles"].select { eq("user_id", idUser) }.body?.jsonArray?.get(0) ?: return null
