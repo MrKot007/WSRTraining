@@ -26,6 +26,8 @@ class Controller {
     }
 
     fun removeElement() {
-        queue.remove()
+        val lst = queue.toMutableList()
+        lst.removeAt(0)
+        queue = LinkedList(lst)
     }
 }
