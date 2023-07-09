@@ -22,45 +22,55 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//        val menu = PopupMenu(this, binding.viewName)
-//        menu.inflate(R.menu.camera_pick)
-//        menu.setOnMenuItemClickListener {
-//            val intent: Intent
-//            if (it.itemId == R.id.camera) {
-//                uriForImage = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues())
-//                intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, uriForImage)
-//            }else {
-//                intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//            }
-//            startActivityForResult(intent, 101)
-//            return@setOnMenuItemClickListener true
-//        }
+        lifecycleScope.launch {
+            val user = SupabaseConnection.getUser(this@HomeActivity)
+            if (user != null) {
+                val fullname = SupabaseConnection.getUserData(this@HomeActivity, user.id)?.full_name ?: ""
+                binding.greeting.text = "Hello ${fullname.substringBefore(" ")}"
+            }
+            loadAvatar()
+        }
+        val menu = PopupMenu(this, binding.cardAva)
+        menu.inflate(R.menu.camera_pick)
+        menu.setOnMenuItemClickListener {
+            val intent: Intent
+            if (it.itemId == R.id.camera) {
+                uriForImage = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, ContentValues())
+                intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uriForImage)
+            }else {
+                intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            }
+            startActivityForResult(intent, 101)
+            return@setOnMenuItemClickListener true
+        }
+        binding.cardAva.setOnClickListener {
+            menu.show()
+        }
     }
-//    private fun loadAvatar() {
-//        lifecycleScope.launch {
-//            val avatarBitmap = SupabaseConnection.getAvatar(this@HomeActivity)
-//            if (avatarBitmap != null) {
-//               binding.viewName.setImageBitmap(avatarBitmap)
-//            }
-//        }
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (resultCode == RESULT_OK) {
-//            val pickImageUri: Uri? = data?.data ?: uriForImage
-//            Log.e("imageSelected", pickImageUri.toString())
-//            if (pickImageUri != null) {
-//                val inputStream : InputStream = contentResolver.openInputStream(pickImageUri)!!
-//                lifecycleScope.launch {
-//                    val bytes = ByteStreams.toByteArray(inputStream)
-//                    SupabaseConnection.uploadAvatar(this@HomeActivity, bytes)
-//                    val newImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-//                    binding.viewName.setImageBitmap(newImage)
-//                }
-//            }
-//        }
-//    }
+    private fun loadAvatar() {
+        lifecycleScope.launch {
+            val avatarBitmap = SupabaseConnection.getAvatar(this@HomeActivity)
+            if (avatarBitmap != null) {
+               binding.ava.setImageBitmap(avatarBitmap)
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            val pickImageUri: Uri? = data?.data ?: uriForImage
+            Log.e("imageSelected", pickImageUri.toString())
+            if (pickImageUri != null) {
+                val inputStream : InputStream = contentResolver.openInputStream(pickImageUri)!!
+                lifecycleScope.launch {
+                    val bytes = ByteStreams.toByteArray(inputStream)
+                    SupabaseConnection.uploadAvatar(this@HomeActivity, bytes)
+                    val newImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                    binding.ava.setImageBitmap(newImage)
+                }
+            }
+       }
+   }
 }
