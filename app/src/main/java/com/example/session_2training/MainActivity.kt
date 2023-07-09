@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Html
 import androidx.lifecycle.lifecycleScope
 import com.example.session_2training.databinding.ActivityMainBinding
+import com.pdfview.PDFView
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -58,9 +59,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, LogInActivity::class.java))
             finish()
         }
-        binding.policeText.setOnClickListener {
-            val dialog = Dialog(this)
-
-        }
+//        binding.policeText.setOnClickListener {
+//            val dialog = Dialog(this)
+//            dialog.setContentView(R.layout.dialog_pdf)
+//            val pdfView = findViewById<PDFView>(R.id.pdfv)
+//            dialog.setOnShowListener {
+//                pdfView.fromAsset("policy.pdf").show()
+//            }
+//            dialog.show()
+//        }
     }
 }
