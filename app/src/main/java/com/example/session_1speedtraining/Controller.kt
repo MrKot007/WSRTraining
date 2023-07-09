@@ -7,27 +7,18 @@ class Controller {
     var queue: Queue<Triple<String, String, Int>> = LinkedList()
 
     fun getSize(): Int {
-        var count = 0
-        queue.forEach {
-            count ++
-        }
-        return count
+        return queue.size
     }
 
     fun getElement() : Triple<String, String, Int> {
-        val element = queue.toList()[0]
-        return element
+        return queue.element()
     }
 
     fun addElement(element: Triple<String, String, Int>) {
-        val lst = queue.toMutableList()
-        lst.add(element)
-        queue = LinkedList(lst)
+        queue.add(element)
     }
 
     fun removeElement() {
-        val lst = queue.toMutableList()
-        lst.removeAt(0)
-        queue = LinkedList(lst)
+        queue.remove()
     }
 }
