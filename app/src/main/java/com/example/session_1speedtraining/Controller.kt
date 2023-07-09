@@ -4,21 +4,25 @@ import java.util.LinkedList
 import java.util.Queue
 
 class Controller {
-    val queue: Queue<Triple<String, String, Int>> = LinkedList()
+    var queue: Queue<Triple<String, String, Int>> = LinkedList()
 
     fun getSize(): Int {
-        val sz = queue.size
-        return sz
+        var count = 0
+        queue.forEach {
+            count ++
+        }
+        return count
     }
 
     fun getElement() : Triple<String, String, Int> {
-        val el = queue.element()
-        return el
+        val element = queue.toList()[0]
+        return element
     }
 
     fun addElement(element: Triple<String, String, Int>) {
-        val el = element
-        queue.add(el)
+        val lst = queue.toMutableList()
+        lst.add(element)
+        queue = LinkedList(lst)
     }
 
     fun removeElement() {
