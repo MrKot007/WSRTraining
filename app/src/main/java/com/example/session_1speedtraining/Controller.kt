@@ -19,6 +19,6 @@ class Controller {
     }
 
     fun removeElement() {
-        queue.remove()
+
     }
 }

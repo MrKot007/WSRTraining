@@ -1,8 +1,11 @@
 package com.example.session_1speedtraining
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.example.session_1speedtraining.databinding.ActivityMainBinding
+import java.util.Queue
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -18,7 +21,33 @@ class MainActivity : AppCompatActivity() {
 
         binding.next.setOnClickListener {
             QueueObject.controller.removeElement()
-            
+            val el = QueueObject.controller.getElement()
+            if (QueueObject.controller.getSize() == 1) {
+                binding.next.visibility = View.GONE
+                binding.skip.visibility = View.GONE
+                binding.signUp.visibility = View.VISIBLE
+                QueueObject.controller.removeElement()
+                binding.signUp.setOnClickListener {
+                    startActivity(Intent(this@MainActivity, Holder::class.java))
+                    finish()
+                }
+                binding.toSignIn.setOnClickListener {
+                    startActivity(Intent(this@MainActivity, Holder::class.java))
+                    finish()
+                }
+            }
+            binding.image.setImageResource(el.third)
+            binding.heading.text = el.first
+            binding.paragraph.text = el.second
+        }
+        binding.skip.setOnClickListener {
+            QueueObject.clearQueue()
+            startActivity(Intent(this@MainActivity, Holder::class.java))
+            finish()
+        }
+        binding.toSignIn.setOnClickListener {
+            startActivity(Intent(this@MainActivity, Holder::class.java))
+            finish()
         }
     }
 }

@@ -12,4 +12,8 @@ object QueueObject {
             controller.addElement(i)
         }
     }
+
+    fun clearQueue() {
+        controller.queue.clear()
+    }
 }
