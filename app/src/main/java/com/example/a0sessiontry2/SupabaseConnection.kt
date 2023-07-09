@@ -67,7 +67,7 @@ object SupabaseConnection {
 
     suspend fun insertNewUser(context: Context, user: DataUserInsertRow) : DataUserRow? {
         try {
-            val result = client.postgrest["Profiles"].insert(user).body?.jsonArray ?: return null
+            val result = client.postgrest["Profiles"].insert(user).body?.jsonArray?.get(0) ?: return null
             return Json.decodeFromJsonElement(result)
         }catch (e: Exception) {
             context.showAlertDialog(e.message ?: "")
