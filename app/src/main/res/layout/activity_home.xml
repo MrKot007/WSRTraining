@@ -79,6 +79,7 @@
                             android:id="@+id/ava"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
+                            android:scaleType="fitXY"
                             app:srcCompat="@drawable/ic_launcher_background" />
                     </androidx.cardview.widget.CardView>
 
