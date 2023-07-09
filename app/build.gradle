@@ -7,7 +7,9 @@ plugins {
 android {
     namespace 'com.example.a0sessiontry2'
     compileSdk 33
-
+    packagingOptions {
+        exclude 'META-INF/androidx.cardview_cardview.version'
+    }
     defaultConfig {
         applicationId "com.example.a0sessiontry2"
         minSdk 24
