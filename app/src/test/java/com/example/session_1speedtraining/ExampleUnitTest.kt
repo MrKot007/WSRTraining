@@ -12,6 +12,7 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun checkSize() {
+        QueueObject.fillQueue()
         val sz = QueueObject.controller.getSize()
         QueueObject.controller.removeElement()
         assertEquals(QueueObject.controller.getSize(), sz-1)
@@ -19,6 +20,7 @@ class ExampleUnitTest {
 
     @Test
     fun checkOrder() {
+        QueueObject.fillQueue()
         for (i in QueueObject.list) {
             assertEquals(QueueObject.controller.getElement(), i)
             QueueObject.controller.removeElement()

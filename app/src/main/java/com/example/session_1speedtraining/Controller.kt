@@ -7,11 +7,11 @@ class Controller {
     val queue: Queue<Triple<String, String, Int>> = LinkedList()
 
     fun getSize(): Int {
-        return 0
+        return queue.size
     }
 
     fun getElement() : Triple<String, String, Int> {
-        return Triple("", "", 0)
+        return queue.element()
     }
 
     fun addElement(element: Triple<String, String, Int>) {
@@ -19,6 +19,6 @@ class Controller {
     }
 
     fun removeElement() {
-
+        queue.remove()
     }
 }
