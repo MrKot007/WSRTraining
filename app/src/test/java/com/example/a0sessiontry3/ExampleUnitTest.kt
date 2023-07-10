@@ -11,7 +11,22 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun checkSize() {
+        controller.fillQueue()
+        for (i in repository) {
+            val sz = controller.getSize()
+            controller.getElement()
+            controller.removeElement()
+            assertEquals(controller.getSize(), sz-1)
+        }
+    }
+
+    @Test
+    fun checkOrder() {
+        controller.fillQueue()
+        for (i in repository) {
+            assertEquals(controller.getElement(), i)
+            controller.removeElement()
+        }
     }
 }
