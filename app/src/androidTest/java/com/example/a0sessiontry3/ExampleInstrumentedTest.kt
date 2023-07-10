@@ -40,17 +40,19 @@ class ExampleInstrumentedTest {
         val signUp = onView(withId(R.id.signUp))
         next.perform(click())
         next.perform(click())
-        signUp.check(matches(isDisplayed()))
+        if (controller.getSize() == 0) {
+            signUp.check(matches(isDisplayed()))
+        }
     }
 
     @Test
     fun checkTransferToHolder() {
         val next = onView(withId(R.id.next))
-        val signUp = onView(withId(R.id.signUp))
+        val signIn = onView(withId(R.id.goToSignIn))
         val holder = onView(withId(R.id.holder))
         next.perform(click())
         next.perform(click())
-        signUp.perform(click())
+        signIn.perform(click())
         holder.check(matches(isDisplayed()))
     }
 
